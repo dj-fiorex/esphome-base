@@ -1,7 +1,7 @@
 ---
 # require pin_hlw8012_sel, pin_hlw8012_sel_inverted, pin_hlw8012_cf, pin_hlw8012_cf_inverted, pin_hlw8012_cf_mode_input, pin_hlw8012_cf_mode_pulldown, pin_hlw8012_cf_mode_pullup
 # pin_hlw8012_cf1, pin_hlw8012_cf1_inverted, pin_hlw8012_cf1_mode_input, pin_hlw8012_cf1_mode_pulldown, pin_hlw8012_cf1_mode_pullup, hlw8012_voltage_divider, hlw8012_current_resistor
-substitution:
+substitutions:
   pin_hlw8012_sel_inverted: "true"
   pin_hlw8012_cf_inverted: "true"
   pin_hlw8012_cf_mode_input: "true"

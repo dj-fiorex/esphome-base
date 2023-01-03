@@ -24,17 +24,13 @@ text_sensor:
       on_value:
         then:
           - lambda: |-
-              if (x == "F0:2F:74:99:3B:20")
-                id(bssid).publish_state("Hallway");
-              else if (x == "F0:2F:74:E3:52:C0")
-                id(bssid).publish_state("Bedroom");           
-              else if (x == "F0:2F:74:38:CB:18")
-                id(bssid).publish_state("Workshop");
-              else if (x == "04:D4:C4:BF:7C:E8")
-                id(bssid).publish_state("Livingroom");
-              else if (x == "24:4B:FE:91:DA:89")
-                id(bssid).publish_state("Bedroom");
-              else if (x == "10:7B:44:E6:A9:A0")
-                id(bssid).publish_state("Livingroom");
+              if (x == "D8:32:14:9F:A1:11")
+                id(bssid).publish_state("Sranza Giuseppe");
+              else if (x == "50:0F:F5:CB:91:71")
+                id(bssid).publish_state("Stanza primo piano");           
+              else if (x == "50:0F:F5:CB:91:61")
+                id(bssid).publish_state("Salone");
+              else if (x == "B4:0F:3B:D8:55:99")
+                id(bssid).publish_state("Cucina primo piano");
               else
                 id(bssid).publish_state(x);

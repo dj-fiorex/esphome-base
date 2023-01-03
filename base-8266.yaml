@@ -2,10 +2,13 @@ substitutions:
   name: base-8266
   wifi_ssid: !secret wifi_ssid
   wifi_password: !secret wifi_password
+  ap_wifi_password: !secret ap_wifi_password
+  ota_pwd: !secret ota_pwd
+  api_pwd: !secret api_pwd
 
 packages:
   base: 
-    url: https://github.com/catalin2402/esphome-base
+    url: https://github.com/dj-fiorex/esphome-base
     files: [ base.yaml ]
     refresh: 1 min
 

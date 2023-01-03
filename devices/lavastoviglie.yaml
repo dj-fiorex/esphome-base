@@ -1,0 +1,16 @@
+substitutions:
+  name: "lavastoviglie"
+packages:
+  athom.smart-plug-v2: github://athom-tech/athom-configs/athom-smart-plug-v2.yaml
+esphome:
+  name: ${name}
+  name_add_mac_suffix: false
+
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  manual_ip:
+    static_ip: 192.168.5.195
+    gateway: 192.168.5.1
+    subnet: 255.255.255.0

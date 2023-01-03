@@ -1,0 +1,52 @@
+---
+sensor:
+  - platform: hlw8012
+    model: BL0937
+    sel_pin:
+      number: $pin_hlw8012_sel
+      # mode:
+      #  input: true
+      #  pullup: true
+      inverted: $pin_hlw8012_sel_inverted # the logic of BL0937 is opposite from HLW8012
+    cf_pin:
+      number: $pin_hlw8012_cf
+      inverted: $pin_hlw8012_cf_inverted
+      mode:
+        input: $pin_hlw8012_cf_mode_input
+        pulldown: $pin_hlw8012_cf_mode_pulldown
+        pullup: $pin_hlw8012_cf_mode_pullup
+    cf1_pin:
+      number: $pin_hlw8012_cf1
+      inverted: $pin_hlw8012_cf1_inverted
+      mode:
+        input: $pin_hlw8012_cf1_mode_input
+        pulldown: $pin_hlw8012_cf1_mode_pulldown
+        pullup: $pin_hlw8012_cf1_mode_pullup
+    voltage_divider: $hlw8012_voltage_divider
+    current_resistor: $hlw8012_current_resistor
+    update_interval: 30s
+    power:
+      name: "$name Power"
+      unit_of_measurement: W
+      id: "power"
+      on_value:
+        - component.update: current
+    voltage:
+      name: "$name Voltage"
+      unit_of_measurement: V
+      id: voltage
+
+  - platform: total_daily_energy
+    name: "$name Energy"
+    power_id: "power"
+    filters:
+      - multiply: 0.001
+    unit_of_measurement: kWh
+
+  - platform: template
+    id: current
+    name: "$name Current"
+    lambda: !lambda "return id(power).state / id(voltage).state;"
+    unit_of_measurement: A
+    accuracy_decimals: 3
+    update_interval: never

@@ -4,4 +4,4 @@ wifi:
   password: $wifi_password
   ap:
     ssid: "$name Hotspot"
-    password: $wifi_password
+    password: $ap_wifi_password

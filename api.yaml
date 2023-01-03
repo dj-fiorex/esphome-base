@@ -1,2 +1,4 @@
 ---
+# Require "api_pwd" substitution
 api:
+  password: $api_pwd

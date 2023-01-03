@@ -1,0 +1,77 @@
+substitutions:
+  basic_pin_pin: "GPIO7"
+  bt_pin: "GPIO20"
+  samp_pin: "A0"
+  samp_sw_pin: "GPIO17"
+  status_led_pin: "GPIO9"
+
+binary_sensor:
+  - platform: gpio 
+    name: "pir bt pin"
+    pin:
+      number: $bt_pin
+      inverted: true
+
+  - platform: gpio
+    name: "PIR basic_pin_pin"
+    pin:
+      number: $basic_pin_pin
+    device_class: motion
+
+switch:
+  - platform: gpio
+    pin: $samp_sw_pin
+    name: "samp_sw_pin"
+
+sensor:
+  - platform: adc
+    pin: $samp_pin
+    name: "samp_pin"
+    update_interval: 30s
+    device_class: battery
+
+light:
+  - platform: status_led
+    name: "status_led_pin"
+    pin: 
+      number: $status_led_pin
+      inverted: true
+    
+esphome:
+  name: cb3se-pir
+
+libretuya:
+  board: cb3se
+  framework:
+    version: dev
+
+# Logger must be at least debug (default)
+logger:
+  level: debug
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "WSa2QnxNIp4Kxw98SzPvY93fZksGaJwR4Zp2b0iibXk="
+
+ota:
+  password: "f797b7c"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  manual_ip:
+    static_ip: 192.168.5.145
+    gateway: 192.168.5.1
+    subnet: 255.255.255.0
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Cb3Se-Pir Fallback Hotspot"
+    password: "jqVlHNGjqNio"
+
+captive_portal:
+
+web_server:
+  port: 80

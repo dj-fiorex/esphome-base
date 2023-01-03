@@ -5,4 +5,4 @@ light:
     internal: true
     pin: 
       number: $pin_status_led
-      inverted: true
+      inverted: $pin_status_led_inverted

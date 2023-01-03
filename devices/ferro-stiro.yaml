@@ -1,0 +1,123 @@
+esphome:
+  name: "ferro-stiro"
+
+libretuya:
+  board: cb2s
+  framework:
+    version: dev
+
+# Enable logging
+logger:
+
+# Enable Web server
+web_server:
+  port: 80
+
+# Enable Home Assistant API
+api:
+  password: "f797b7c"
+
+ota:
+  password: "f797b7c"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  manual_ip:
+    static_ip: 192.168.5.164
+    gateway: 192.168.5.1
+    subnet: 255.255.255.0
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "ElivcoLSPA9AP"
+    password: "ElivcoLSPA9APf797b7c"
+
+captive_portal:
+
+switch:  # the socket relay
+  - platform: gpio
+    pin: P26
+    id: plug_1
+    name: 'Plug 1'
+    restore_mode: ALWAYS_ON  # attempt to restore state and default to OFF if not possible to restore
+  # Test switch to calibrate
+  # - platform: gpio
+  #   pin: P24
+  #   id: P24Switch
+  #   name: 'P24Switch'
+  #   restore_mode: ALWAYS_OFF  # attempt to restore state and default to OFF if not possible to restore
+
+binary_sensor:  # the button
+  - platform: gpio
+    pin:
+      number: P10
+      inverted: true
+    id: button
+    internal: true  # don't expose it to HASS, only use it locally
+    on_release:
+      then:
+        - switch.toggle: plug_1  # toggle the relay
+
+# sensor:
+#   - platform: pulse_counter
+#     pin: 
+#       number: P7
+#       inverted: true
+#     id: P7Pulse
+#     internal: true  # don't expose it to HASS, only use it locally
+#     count_mode: 
+#       falling_edge: DISABLE
+#       rising_edge: INCREMENT
+#     update_interval: 60s
+#   - platform: pulse_counter
+#     pin: 
+#       number: P6
+#       inverted: true
+#     id: P6Pulse
+#     internal: true  # don't expose it to HASS, only use it locally
+#     count_mode: 
+#       falling_edge: DISABLE
+#       rising_edge: INCREMENT
+#     update_interval: 60s
+
+sensor:
+  - platform: hlw8012
+    model: BL0937  # note that the model must be specified to use special calculation parameters
+    voltage_divider: 780  # adjust it according to the actual resistor values on board
+    current_resistor: 0.00107
+    # initial_mode: "CURRENT"
+    # change_mode_every: 4294967295 
+    update_interval: 10s
+    sel_pin:
+      number: P24
+      # mode:
+      #  input: true
+      #  pullup: true
+      inverted: true  # the logic of BL0937 is opposite from HLW8012
+    cf_pin:
+      number: P7
+      inverted: true
+      mode:
+        input: true
+        pulldown: true
+    cf1_pin:
+      number: P6
+      inverted: true
+      mode:
+        input: true
+        pulldown: true  
+    current:
+      name: 'Plug 1 Current'
+    voltage:
+      name: 'Plug 1 Voltage'
+    power:
+      name: 'Plug 1 Power'
+    energy:
+      name: 'Plug 1 Energy'
+      # convert it to kWh
+      filters:
+        - multiply: 0.001
+      unit_of_measurement: 'kWh'
+      accuracy_decimals: 4
+

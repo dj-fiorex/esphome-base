@@ -1,0 +1,30 @@
+esphome:
+  name: smart-plug-base
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "CSGgzqkjtHNg19Y2KM3Yo7IilZ1nvisgxsGLQ7SHBiY="
+
+ota:
+  password: "60c88229e8cded2391c778977db2e4e8"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Smart-Plug-Base Fallback Hotspot"
+    password: "7rKh74cE95vi"
+
+captive_portal:
+    

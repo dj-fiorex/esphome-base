@@ -12,10 +12,14 @@ substitutions:
   pin_hlw8012_cf1_mode_pullup: "false"
   hlw8012_voltage_divider: "780"
   hlw8012_current_resistor: "0.00107"
+  hlw8012_initial_mode: "VOLTAGE"
+  hlw8012_change_mode_every: "4294967295"
 
 sensor:
   - platform: hlw8012
     model: BL0937
+    initial_mode: $hlw8012_initial_mode
+    change_mode_every: $hlw8012_change_mode_every
     sel_pin:
       number: $pin_hlw8012_sel
       # mode:

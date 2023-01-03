@@ -1,4 +1,7 @@
 ---
+substitutions:
+  pin_status_led_inverted: "false"
+
 light:
   - platform: status_led
     id: statusled

@@ -1,4 +1,7 @@
 ---
+substitutions:
+  pin_status_led_inverted: "false"
+
 status_led:
   pin:
     number: $pin_status_led
